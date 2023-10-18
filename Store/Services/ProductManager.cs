@@ -36,16 +36,32 @@ namespace Services
             }
         }
 
-        public IEnumerable<Product> GetAllProducts(bool trackChanges)
+     
+
+        public IEnumerable<Product> GetAllProducts( bool trackChanges)
         {
-            return _manager.Product.GetAllProducts(trackChanges);
+          return _manager.Product.GetAllProducts(trackChanges);
         }
+
 
         public IEnumerable<Product> GetAllProductsWithDetails(ProductRequestParameters p)
         {
            return _manager.Product.GetAllProductsWithDetails(p);
         }
 
+
+
+        public IEnumerable<Product> GetLastestProducts(int n, bool trackChanges)
+        {
+           return _manager
+           .Product
+           .FindAll(trackChanges)
+           .OrderByDescending(prd=>prd.ProductId)
+           .Take(n);
+
+
+
+        }
 
         public Product? GetOneProduct(int id, bool trackChanges)
         {
@@ -79,5 +95,8 @@ namespace Services
             _manager.Product.UpdateOneProduct(entity);
             _manager.Save();
         }
+
+       
+
     }
 }
