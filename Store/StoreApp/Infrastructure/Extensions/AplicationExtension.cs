@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 
-namespace StoreApp.Infrastructe.Extensions
+namespace StoreApp.Infrastructure.Extensions
 {
     
 public static class AplicationExtension
@@ -31,6 +31,18 @@ if(context.Database.GetPendingMigrations().Any())
     .SetDefaultCulture("tr-TR");
  });
     }
+
+
+
+public static void ConfigureDefaultAdminUser(this IApplicationBuilder app )
+{
+const string adminUser="Admin";
+const string adminPassword="123456";
+
+
+}
+
+
 }
 
 }
