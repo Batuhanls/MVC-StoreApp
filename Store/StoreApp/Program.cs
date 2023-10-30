@@ -34,9 +34,13 @@ app.UseEndpoints(endpoints =>
     );
 
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
+    endpoints.MapControllers();
     endpoints.MapRazorPages();
 });
+
+
+
+
 app.ConfigureLocalization();
 app.ConfigureAndCheckMigration();
 app.ConfigureDefaultAdminUser();
