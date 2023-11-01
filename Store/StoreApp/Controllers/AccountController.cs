@@ -16,12 +16,12 @@ namespace StoreApp.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login([FromQuery(Name ="ReturnUrl")]string ReturnUrl="/")
+        public IActionResult Login([FromQuery(Name = "ReturnUrl")] string ReturnUrl = "/")
         {
 
             return View(new LoginModel()
             {
-                ReturnUrl=ReturnUrl
+                ReturnUrl = ReturnUrl
             });
 
         }
@@ -41,55 +41,55 @@ namespace StoreApp.Controllers
                         return Redirect(model?.ReturnUrl ?? "/");
                     }
                 }
-                ModelState.AddModelError("Error","Invalid username or password.");
+                ModelState.AddModelError("Error", "Invalid username or password.");
             }
 
             return View();
 
         }
-    
-    public async Task<IActionResult> Logout([FromQuery(Name ="ReturnUrl")]string ReturnUrl="/")
-    {
-        await _signInManager.SignOutAsync();
-        return Redirect(ReturnUrl);
-    }
-    
-    
-public IActionResult Register()
-{
-    return View();
 
-}
-
-
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task <IActionResult> Register([FromForm]RegisterDto model)
-{
-    var user=new IdentityUser
-    {
-        UserName=model.UserName,
-        Email=model.Email,
-    };
-    var result=await _userManager
-    .CreateAsync(user,model.Password);
-    if(result.Succeeded)
-    {
-        var roleResult=await _userManager
-        .AddToRoleAsync(user,"User");
-        if(roleResult.Succeeded)
-        return RedirectToAction("Login");
-    }
-    else
-    
-    {
-        foreach (var err in result.Errors)
+        public async Task<IActionResult> Logout([FromQuery(Name = "ReturnUrl")] string ReturnUrl = "/")
         {
-            ModelState.AddModelError("",err.Description);
+            await _signInManager.SignOutAsync();
+            return Redirect(ReturnUrl);
         }
-    }
-    return View();
-}
+
+
+        public IActionResult Register()
+        {
+            return View();
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([FromForm] RegisterDto model)
+        {
+            var user = new IdentityUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+            };
+            var result = await _userManager
+            .CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                var roleResult = await _userManager
+                .AddToRoleAsync(user, "User");
+                if (roleResult.Succeeded)
+                    return RedirectToAction("Login");
+            }
+            else
+
+            {
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError("", err.Description);
+                }
+            }
+            return View();
+        }
 
 
     }
