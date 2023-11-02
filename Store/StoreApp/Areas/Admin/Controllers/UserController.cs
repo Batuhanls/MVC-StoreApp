@@ -1,4 +1,5 @@
 using Entities.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Services.Contracts;
@@ -6,6 +7,7 @@ using Services.Contracts;
 namespace StoreApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+     [Authorize(Roles ="Admin")]
     public class UserController : Controller
     {
         private readonly IServiceManager _manager;
@@ -76,6 +78,20 @@ namespace StoreApp.Areas.Admin.Controllers
         {
             var result = await _manager.AuthService.ResetPassword(model);
             return result.Succeeded
+            ? RedirectToAction("Index")
+            : View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteOneUser([FromForm] UserDto userDto)
+        {
+            var result = await _manager
+             .AuthService
+             .DeletOneUser(userDto.UserName);
+            return result
+            .Succeeded
             ? RedirectToAction("Index")
             : View();
         }
