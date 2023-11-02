@@ -23,8 +23,8 @@
                 <td>-</td>
                 <td>
                     <div class="btn-grop">
-                        <a class="btn btn-sm btn-warning">Update</a>
-                        <a class="btn btn-sm btn-info">Reset Pasword</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Update" asp-route-id="@user.UserName">Edit</a>
+                        <a class="btn btn-sm btn-info" asp-action="ResetPassword" asp-route-id="@user.UserName">Reset Pasword</a>
                         <a class="btn btn-sm btn-danger">Delete</a>
                     </div>
 
