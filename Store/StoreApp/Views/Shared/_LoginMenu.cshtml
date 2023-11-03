@@ -2,7 +2,7 @@
   {
     <li class="nav-item">
           <a class="nav-link" aria-current="page" asp-area="Admin" asp-controller="Dashboard"
-            asp-action="Index">Admin</a>
+            asp-action="Index"><i class="fa fa-solid fa-gear"></i>  Admin</a>
         </li>
   }
   
@@ -15,7 +15,7 @@
           <a class="nav-link" aria-current="page"
            asp-area="" asp-controller="Account"
            asp-route-returnUrl="@Context.Request.PathAndQuery()"
-            asp-action="Logout">Logout</a>
+            asp-action="Logout"><i class="fa-solid text-white fa-right-to-bracket"></i>Logout</a>
         </li>
  }
  else
@@ -24,7 +24,7 @@
           <a class="nav-link" aria-current="page"
            asp-area="" asp-controller="Account"
            asp-route-returnUrl="@Context.Request.PathAndQuery()"
-            asp-action="Login">Login</a>
+            asp-action="Login"><i class="fa-solid text-white fa-right-to-bracket"></i>Login</a>
         </li>
 
  }
